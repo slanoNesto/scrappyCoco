@@ -1,7 +1,7 @@
 {
-  "name": "backarondzula",
+  "name": "scrappyCoco",
   "version": "1.0.0",
-  "description": "Karakondzula's backend",
+  "description": "scrappyCoco's backend",
   "main": "./app/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
