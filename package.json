@@ -1,0 +1,40 @@
+{
+  "name": "backarondzula",
+  "version": "1.0.0",
+  "description": "Karakondzula's backend",
+  "main": "./app/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./.temp/app.js"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "*",
+    "cheerio": "^0.22.0",
+    "express": "*",
+    "file-system": "^2.2.1",
+    "jwt-simple": "^0.5.0",
+    "lodash": "^4.16.6",
+    "mongoose": "*",
+    "mongoose-slug-generator": "^1.0.4",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "request": "^2.78.0",
+    "x-ray": "^2.3.1"
+  },
+  "author": "Milos Milutinovic",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^5.4.2",
+    "babel-preset-es2015-node5": "^1.2.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.16.3",
+    "gulp": "^3.9.1",
+    "gulp-live-server": "0.0.30",
+    "gulp-shell": "^0.5.2",
+    "gulp-watch": "^4.3.10",
+    "rimraf": "^2.5.4",
+    "run-sequence": "^1.2.2"
+  }
+}
