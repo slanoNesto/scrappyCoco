@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
-var routes = require('./routes/routes')(app);
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var mongooseSlug = require('mongoose-slug-generator');
+const express = require('express');
+const app = express();
+const routes = require('./routes/routes')(app);
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const mongooseSlug = require('mongoose-slug-generator');
 
 mongoose.plugin(mongooseSlug);
 mongoose.Promise = global.Promise;
@@ -17,11 +17,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-var PORT = 3000;
+const PORT = 3000;
 
 //connect to mongoose
 mongoose.connect('mongodb://localhost/karakondzula');
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 app.get('/', function(req, res) {
     res.send('odjebi');

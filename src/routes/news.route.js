@@ -1,12 +1,12 @@
-var bodyParser = require('body-parser');
-var authService = require('../services/auth.service.js');
-var blicService = require('../modules/scrape/scrapers/blic.scrape.js');
-var kurirService = require('../modules/scrape/scrapers/kurir.scrape.js');
+const bodyParser = require('body-parser');
+const authService = require('../services/auth.service.js');
+const blicService = require('../modules/scrape/scrapers/blic.scrape.js');
+const kurirService = require('../modules/scrape/scrapers/kurir.scrape.js');
 
 module.exports = function (app) {
 
-    var Filter = require('../models/filter.model');
-    var BASE = require('../config').baseUrl;
+    const Filter = require('../models/filter.model');
+    const BASE = require('../config').baseUrl;
 
     app.use(bodyParser.json());
 

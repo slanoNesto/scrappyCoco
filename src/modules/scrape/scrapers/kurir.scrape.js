@@ -1,10 +1,9 @@
-var request = require('request');
-var cheerio = require('cheerio');
-var {containsFilter} = require('../../../services/helpers.service.js');
-var SingleNews = require('./../news.model.js');
+const request = require('request');
+const cheerio = require('cheerio');
+const {containsFilter} = require('../../../services/helpers.service.js');
+const SingleNews = require('./../news.model.js');
 
-//const FILTERS = require('./../filters.constant.js');
-const NUMBER_OF_PAGES_TO_BE_SCRAPED = 10;
+const NUMBER_OF_PAGES_TO_BE_SCRAPED = 5;
 
 //LINKS
 const SITE_ADDRESS = 'http://www.kurir.rs';
@@ -44,11 +43,11 @@ function getNews(filters) {
 
 //scrape the dom and return the data
 function scrape($, FILTERS) {
-    var filtered = [];
-    var latestItems = $('.newsListModule').find('.newsListBlock');
-    var listItem, a, text, link;
+    let filtered = [];
+    let latestItems = $('.newsListModule').find('.newsListBlock');
+    let listItem, a, text, link;
 
-    for (var i = latestItems.length - 1; i >= 0; i--) {
+    for (let i = latestItems.length - 1; i >= 0; i--) {
         listItem = $(latestItems[i]);
         a = listItem.find('a.link');
 

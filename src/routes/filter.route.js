@@ -1,10 +1,10 @@
-var bodyParser = require('body-parser');
-var authService = require('../services/auth.service.js');
+const bodyParser = require('body-parser');
+const authService = require('../services/auth.service.js');
 
 module.exports = function (app) {
 
-    var BASE = require('../config').baseUrl;
-    var Filter = require('../models/filter.model');
+    const BASE = require('../config').baseUrl;
+    const Filter = require('../models/filter.model');
 
     app.use(bodyParser.json());
 
