@@ -1,3 +1,6 @@
+const cache = require('memory-cache');
+const CACHE_DURATION = require('../config').cacheDuration;
+
 function containsFilter(text, filters, allFilters) {
     let filtersMatched = [];
     //iterate through passed (target) filters and check if string contains it
@@ -10,7 +13,7 @@ function containsFilter(text, filters, allFilters) {
 
         //if has a match
         if (text.indexOf(matchingString) > -1) {
-            //found a match. Iterate through all filters to embed references and return
+            //found a match. Iterate through all filters to embed references to all filters it matches and return
             for (let i = 0; i < allFilters.length; i++) {
                 let filter = allFilters[i].toObject();
                 let matchingString = filter.matchingIndex ? filter.name.substring(0, filter.matchingIndex) : filter.name;
@@ -24,6 +27,12 @@ function containsFilter(text, filters, allFilters) {
     return false;
 }
 
+function cacheIt(cacheKey, data) {
+    if (!data || !data.length) return;
+    cache.put(cacheKey, data, CACHE_DURATION);
+}
+
 module.exports = {
-    containsFilter
+    containsFilter,
+    cacheIt
 };

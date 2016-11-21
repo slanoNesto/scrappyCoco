@@ -1,6 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
-const {containsFilter} = require('../../../services/helpers.service.js');
+const cache = require('memory-cache');
+const {containsFilter, cacheIt} = require('../../../services/helpers.service.js');
 const SingleNews = require('./../news.model.js');
 
 const NUMBER_OF_PAGES_TO_BE_SCRAPED = 5;
@@ -12,6 +13,11 @@ const MOST_RECENT_NEWS = SITE_ADDRESS + '/najnovije';
 function getNews(filters, allFilters) {
     let promises = [];
     let news = [];
+
+    //check if have cached
+    let cacheKey = filters ? 'kurir' + filters.join('') : 'kurir';
+    let cached = cache.get(cacheKey);
+    if (cached) return Promise.resolve(cached);
 
     //kurir has paginated most recent news, calling pages in a loop, getting the filtered news
     //note: consider adding a timeout between requests to avoid being detected as ddos
@@ -37,6 +43,7 @@ function getNews(filters, allFilters) {
     }
 
     return Promise.all(promises).then(() => {
+        cacheIt(cacheKey, news);
         return news;
     }, (error) => error);
 }
