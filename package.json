@@ -1,7 +1,7 @@
 {
-  "name": "backarondzula",
+  "name": "scrappyCoco",
   "version": "1.0.0",
-  "description": "Karakondzula's backend",
+  "description": "scrappyCoco's backend",
   "main": "./app/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,6 +15,7 @@
     "file-system": "^2.2.1",
     "jwt-simple": "^0.5.0",
     "lodash": "^4.16.6",
+    "memory-cache": "^0.1.6",
     "mongoose": "*",
     "mongoose-slug-generator": "^1.0.4",
     "passport": "^0.3.2",

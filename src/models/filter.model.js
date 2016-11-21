@@ -30,7 +30,7 @@ function getFilters(ids, callback) {
 }
 
 filterSchema.methods.toJSON = function () {
-    var filter = this.toObject();
+    let filter = this.toObject();
     delete filter.matchingIndex;
 
     return filter;

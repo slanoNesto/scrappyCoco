@@ -1,13 +1,13 @@
-var bodyParser = require('body-parser');
-var jwt = require('jwt-simple');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+const bodyParser = require('body-parser');
+const jwt = require('jwt-simple');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function (app) {
 
-    var User = require('../models/user.model');
-    var BASE = require('../config').baseUrl;
-    var SECRET = require('../config').secret;
+    const User = require('../models/user.model');
+    const BASE = require('../config').baseUrl;
+    const SECRET = require('../config').secret;
 
     app.use(bodyParser.json());
 
@@ -16,7 +16,7 @@ module.exports = function (app) {
         done(null, user._id);
     });
 
-    var loginStrategy = new LocalStrategy({
+    const loginStrategy = new LocalStrategy({
         usernameField: 'email'
     }, function(email, password, done) {
         User.getUser({email: email}, function(err, user) {

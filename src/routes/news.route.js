@@ -1,45 +1,42 @@
-var bodyParser = require('body-parser');
-var authService = require('../services/auth.service.js');
-var blicService = require('../modules/scrape/scrapers/blic.scrape.js');
-var kurirService = require('../modules/scrape/scrapers/kurir.scrape.js');
+const bodyParser = require('body-parser');
+const authService = require('../services/auth.service.js');
+const blicService = require('../modules/scrape/scrapers/blic.scrape.js');
+const kurirService = require('../modules/scrape/scrapers/kurir.scrape.js');
 
 module.exports = function (app) {
 
-    var Filter = require('../models/filter.model');
-    var BASE = require('../config').baseUrl;
+    const Filter = require('../models/filter.model');
+    const BASE = require('../config').baseUrl;
 
     app.use(bodyParser.json());
 
     app.get(BASE + '/news/blic', function(req, res) {
-        let ids = req.query.filters;
-        authService.authorize(req, res, function (user) {
-            Filter.getFilters(ids, function(err, filters) {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                blicService.getNews(filters).then((data) => {
-                    res.json(data);
-                }, () => {
-                    res.status(500).send(err);
-                });
-            });
-        });
+        handleNewsRequest(req, res, blicService.getNews);
     });
 
     app.get(BASE + '/news/kurir', function(req, res) {
+        handleNewsRequest(req, res, kurirService.getNews);
+    });
+
+    function handleNewsRequest(req, res, getNews) {
         let ids = req.query.filters;
+        if (ids && !ids.join) return res.status(400).send('Bad Request');
+
         authService.authorize(req, res, function (user) {
             Filter.getFilters(ids, function(err, filters) {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                kurirService.getNews(filters).then((data) => {
-                    res.json(data);
-                }, () => {
-                    res.status(500).send(err);
+                if (err) res.status(500).send(err);
+
+                Filter.getAllFilters((err, allFilters) => {
+                    if (err) res.status(500).send(err);
+
+                    getNews(filters, allFilters).then((data) => {
+                        res.json(data);
+                    }, () => {
+                        res.status(500).send(err);
+                    });
                 });
             });
         });
-    });
+    }
 
 };
