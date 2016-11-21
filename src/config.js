@@ -1,6 +1,7 @@
 module.exports = {
 
     baseUrl: '/api',
-    secret: 'temporary...'
+    secret: 'temporary...',
+    cacheDuration: 20 * 1000
 
 };
