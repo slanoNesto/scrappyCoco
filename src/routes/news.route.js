@@ -14,13 +14,16 @@ module.exports = function (app) {
         let ids = req.query.filters;
         authService.authorize(req, res, function (user) {
             Filter.getFilters(ids, function(err, filters) {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                blicService.getNews(filters).then((data) => {
-                    res.json(data);
-                }, () => {
-                    res.status(500).send(err);
+                if (err) res.status(500).send(err);
+
+                Filter.getAllFilters((err, allFilters) => {
+                    if (err) res.status(500).send(err);
+
+                    blicService.getNews(filters, allFilters).then((data) => {
+                        res.json(data);
+                    }, () => {
+                        res.status(500).send(err);
+                    });
                 });
             });
         });
@@ -30,13 +33,16 @@ module.exports = function (app) {
         let ids = req.query.filters;
         authService.authorize(req, res, function (user) {
             Filter.getFilters(ids, function(err, filters) {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                kurirService.getNews(filters).then((data) => {
-                    res.json(data);
-                }, () => {
-                    res.status(500).send(err);
+                if (err) res.status(500).send(err);
+
+                Filter.getAllFilters((err, allFilters) => {
+                    if (err) res.status(500).send(err);
+
+                    kurirService.getNews(filters, allFilters).then((data) => {
+                        res.json(data);
+                    }, () => {
+                        res.status(500).send(err);
+                    });
                 });
             });
         });

@@ -9,7 +9,7 @@ const NUMBER_OF_PAGES_TO_BE_SCRAPED = 5;
 const SITE_ADDRESS = 'http://www.kurir.rs';
 const MOST_RECENT_NEWS = SITE_ADDRESS + '/najnovije';
 
-function getNews(filters) {
+function getNews(filters, allFilters) {
     let promises = [];
     let news = [];
 
@@ -22,7 +22,7 @@ function getNews(filters) {
             request(url, (error, response, body) => {
                 if (!error && body) {
                     let dom = cheerio.load(body);
-                    let filteredNews = scrape(dom, filters);
+                    let filteredNews = scrape(dom, filters, allFilters);
                     news = news.concat(filteredNews);
 
                     resolve(news);
@@ -42,7 +42,7 @@ function getNews(filters) {
 }
 
 //scrape the dom and return the data
-function scrape($, FILTERS) {
+function scrape($, FILTERS, ALL_FILTERS) {
     let filtered = [];
     let latestItems = $('.newsListModule').find('.newsListBlock');
     let listItem, a, text, link;
@@ -54,7 +54,7 @@ function scrape($, FILTERS) {
         text = a.find('h2.title').text();
         link = SITE_ADDRESS + a.attr('href');
 
-        let matchedFilters = containsFilter(text, FILTERS);
+        let matchedFilters = containsFilter(text, FILTERS, ALL_FILTERS);
         if (matchedFilters) {
             filtered.push(new SingleNews(text, link, matchedFilters));
         }

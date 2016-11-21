@@ -6,13 +6,13 @@ const SingleNews = require('./../news.model.js');
 //LINKS
 const MOST_RECENT_NEWS = 'http://www.blic.rs/najnovije-vesti';
 
-function getNews(filters) {
+function getNews(filters, allFilters) {
     return new Promise((resolve, reject) => {
         request(MOST_RECENT_NEWS, (error, response, body) => {
 
             if (!error && body) {
                 let dom = cheerio.load(body);
-                let news = scrape(dom, filters);
+                let news = scrape(dom, filters, allFilters);
 
                 resolve(news);
             } else {
@@ -24,7 +24,7 @@ function getNews(filters) {
 }
 
 //scrape the dom and return the data
-function scrape($, FILTERS) {
+function scrape($, FILTERS, ALL_FILTERS) {
     let filtered = [];
     let latestItems = $('#latestContainer').find('li');
     let listItem, a, text, link;
@@ -37,7 +37,7 @@ function scrape($, FILTERS) {
             text = a.text();
             link = a.attr('href');
 
-            let matchedFilters = containsFilter(text, FILTERS);
+            let matchedFilters = containsFilter(text, FILTERS, ALL_FILTERS);
             if (matchedFilters) {
                 filtered.push(new SingleNews(text, link, matchedFilters));
             }
