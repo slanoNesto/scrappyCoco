@@ -8,7 +8,7 @@ function init() {
     const job = new cronJob({
         cronTime: '00 18 23 * * *', //every day at midnigh
         onTick: function() {
-            console.log('onTick');
+            console.log('Archive cron job started');
             Filter.getFilters(null, function(err, filters) {
                 if (err) return console.log(err);
 
