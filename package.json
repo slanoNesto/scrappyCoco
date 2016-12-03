@@ -11,6 +11,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "*",
     "cheerio": "^0.22.0",
+    "cron": "^1.1.1",
     "express": "*",
     "file-system": "^2.2.1",
     "jwt-simple": "^0.5.0",

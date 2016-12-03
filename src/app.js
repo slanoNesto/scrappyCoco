@@ -4,6 +4,7 @@ const routes = require('./routes/routes')(app);
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongooseSlug = require('mongoose-slug-generator');
+const archiveCron = require('./archive.cron');
 
 mongoose.plugin(mongooseSlug);
 mongoose.Promise = global.Promise;
@@ -16,6 +17,8 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
+
+archiveCron.init();
 
 const PORT = 3000;
 

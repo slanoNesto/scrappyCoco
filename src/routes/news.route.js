@@ -11,14 +11,14 @@ module.exports = function (app) {
     app.use(bodyParser.json());
 
     app.get(BASE + '/news/blic', function(req, res) {
-        handleNewsRequest(req, res, blicService.getNews);
+        handleScrapeRequest(req, res, blicService.getNews);
     });
 
     app.get(BASE + '/news/kurir', function(req, res) {
-        handleNewsRequest(req, res, kurirService.getNews);
+        handleScrapeRequest(req, res, kurirService.getNews);
     });
 
-    function handleNewsRequest(req, res, getNews) {
+    function handleScrapeRequest(req, res, getNews) {
         let ids = req.query.filters;
         if (ids && !ids.join) return res.status(400).send('Bad Request');
 
