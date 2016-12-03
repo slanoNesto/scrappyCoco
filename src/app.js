@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-archiveCron.init();
+//archiveCron.init();
 
 const PORT = 3000;
 
