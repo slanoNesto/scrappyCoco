@@ -6,7 +6,7 @@ function init() {
     const blicService = require('./modules/scrape/scrapers/blic.scrape.js');
 
     const job = new cronJob({
-        cronTime: '00 18 23 * * *', //every day at midnigh
+        cronTime: '00 59 23 * * *', //every day at midnigh
         onTick: function() {
             console.log('Archive cron job started');
             Filter.getFilters(null, function(err, filters) {
@@ -39,7 +39,7 @@ function init() {
         start: false
     });
 
-    //job.start();
+    job.start();
 }
 
 module.exports = {
