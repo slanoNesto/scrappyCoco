@@ -17,7 +17,6 @@ const newsSchema = mongoose.Schema({
 });
 
 function archive(data, callback) {
-    console.log('call insert');
     News.collection.insert(data, (err, docs) => {
         callback(err, docs);
     });
